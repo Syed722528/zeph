@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "714807508082",
+    "project_id": "zeph-269c6",
+    "storage_bucket": "zeph-269c6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714807508082:android:b680f3eebb7bd513ac56eb",
+        "android_client_info": {
+          "package_name": "com.example.zeph"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp-PlGXGDoqTzipN12SX_rdC1SbzvS2rc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

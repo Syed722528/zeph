@@ -23,7 +23,6 @@ class SignInController extends GetxController {
     super.onClose();
   }
 
-  // Validation logic
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return "Email is required";

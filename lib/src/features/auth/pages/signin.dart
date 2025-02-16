@@ -6,7 +6,7 @@ import 'package:zeph/src/features/auth/controllers/signin_controller.dart';
 import 'package:zeph/src/features/auth/pages/signup.dart';
 
 import '../../../utils/app_colors.dart';
-import '../widgets/custom_input_field.dart';
+import '../widgets/custom_input_decoration.dart';
 
 class Signin extends StatelessWidget {
   const Signin({super.key});
