@@ -1,5 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:zeph/src/features/auth/services/firebase_auth_service.dart';
+import 'package:zeph/src/services/local_storage.dart';
+
+import '../../../models/user_model.dart';
 
 class SignUpController extends GetxController {
   final emailController = TextEditingController();
@@ -8,7 +12,6 @@ class SignUpController extends GetxController {
   final formKey = GlobalKey<FormState>();
   RxDouble bottomPosition = (-Get.height * 0.70).obs;
 
-  
   void showForm() {
     bottomPosition.value = 0; // Slide up
   }
@@ -45,15 +48,31 @@ class SignUpController extends GetxController {
   String? validateConfirmPassword(String? value) {
     if (value == null || value.isEmpty) {
       return "Confirm your password";
-    } else if (value != passwordController.text) {
-      return "Passwords do not match";
+    } else if (passwordController.text != confirmPassword.text) {
+      return 'Passwords do not match';
     }
+    // //  else if (value != passwordController.text) {
+    // //   return "Passwords do not match";
+    // }
     return null;
   }
 
-  void signUp() {
+  void signUp() async {
     if (formKey.currentState!.validate()) {
-      Get.snackbar('Success', 'Account created successfully');
+      try {
+        UserModel? user = await FirebaseAuthService.signUp(
+          emailController.text.trim(),
+          passwordController.text.trim(),
+        );
+        if (user != null) {
+          LocalStorageService.saveUser(user);
+          Get.snackbar('Success', 'Account created successfully');
+        } else {
+          Get.snackbar('Error', 'An unknown error occurred');
+        }
+      } catch (e) {
+        Get.snackbar('Error', e.toString());
+      }
     }
   }
 }

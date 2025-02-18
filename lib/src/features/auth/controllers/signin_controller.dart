@@ -1,5 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:zeph/src/features/auth/services/firebase_auth_service.dart';
+import 'package:zeph/src/services/local_storage.dart';
+
+import '../../../models/user_model.dart';
 
 class SignInController extends GetxController {
   final emailController = TextEditingController();
@@ -39,9 +43,22 @@ class SignInController extends GetxController {
     return null;
   }
 
-  void signIn() {
+  Future<void> signIn() async {
     if (formKey.currentState!.validate()) {
-      Get.snackbar('Success', 'Sign in Successful');
+      try {
+        UserModel? user = await FirebaseAuthService.signIn(
+          emailController.text.trim(),
+          passwordController.text.trim(),
+        );
+        if (user != null) {
+          LocalStorageService.saveUser(user);
+          Get.snackbar('Success', 'Sign in Successful');
+        } else {
+          Get.snackbar('Error', 'Invalid Credentials');
+        }
+      } catch (e) {
+        Get.snackbar('Error', e.toString());
+      }
     }
   }
 }
